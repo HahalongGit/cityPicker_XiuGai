@@ -315,20 +315,19 @@ public class CityPickerDialog extends Dialog {
                 updateCities();
                 //省级数据更新后默认让县级数据选择0
                 mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-                //mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
+                mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
                 Log.e("TAG","newValue："+newValue);
                 Log.e("TAG","mViewProvince选择的结果是："+mCurrentDistrictName);
             } else if (wheel == mViewCity) {
                 updateAreas();
                 //市数据更新后默认让县级数据选择0
                 mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-                //mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
+                mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
                 Log.e("TAG","mViewCity选择的结果是："+mCurrentDistrictName);
             } else if (wheel == mViewDistrict) {
                 //直接选择县级数据
                 mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
                 mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
-                Log.e("TAG","mViewDistrict选择的结果是："+mCurrentDistrictName);
             }
             pickValue = mCurrentProviceName + divider + mCurrentCityName + divider + mCurrentDistrictName;
             Log.e("TAG","选择的结果是："+pickValue);
