@@ -8,3 +8,35 @@
 mViewProvince.setCurrentItem(provincePos);
 mViewCity.setCurrentItem(cityPos);
 mViewDistrict.setCurrentItem(distractPos);这样就OK了。
+设置默认选中的值：
+点击打开城市选择器，在没有滑动选择城市数据的时候，默认已经选了第一个数据如：安徽省-安庆市-枞阳县。但是点击确认没有选上数据。
+研究代码发现，原作者在onChange方法中进行了赋值操作，没有滑动选择的时候默认结果是空，所以直接打开点击确认这个值是空的。
+修改：若有需要可以将赋值操作提到点击的确认操作中，不再onChange方法中给pickValue赋值即可。
+如：
+//CityPickerPopWindow 类中
+ showValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //不管选没选，都有默认的一个pickValue
+                pickValue = mCurrentProviceName + divider + mCurrentCityName + divider + mCurrentDistrictName;
+                if (cityPickListner != null) {
+                    cityPickListner.pickValue(pickValue);
+                }
+                dismiss();
+            }
+        });
+或者：
+ //CityPickerDialog 类
+ surelView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (negativeClickListener != null) {
+                        negativeClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
+                        pickValue = mCurrentProviceName + divider + mCurrentCityName + divider + mCurrentDistrictName;
+                        Log.e("TAG", "选择的结果是：" + pickValue);
+                        if (cityPickListner != null) {
+                            cityPickListner.pickValue(pickValue);
+                        }
+                    }
+                }
+            });
